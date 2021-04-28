@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XMLTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="Note" MinHeight="300" MinWidth="500" Height="450" Width="800" Background="#FFFFFFFF" Closing="Window_Closing">
+    <Grid Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Name="NewMenuItem" Header="New" Click="NewMenuItem_OnClick"/>
+                <MenuItem Name="OpenMenuItem" Header="Open" Click="OpenMenuItem_OnClick"/>
+                <MenuItem Name="SaveMenuItem" Header="Save" Click="SaveMenuItem_OnClick"/>
+                <MenuItem Name="CloseMenuItem" Header="Close" Click="CloseMenuItem_OnClick"/>
+            </MenuItem>
+        </Menu>
+        <DataGrid Grid.Row="1" Name="NoteDataGrid" Margin="5" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn MinWidth="40" Width="40" MaxWidth="40" Header="Done" Binding="{Binding Path = Done, Mode=TwoWay}">
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Width="*" Header="Note" Binding="{Binding Path = Note, Mode=TwoWay}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+            <Label Name="PathLabel" FontSize="12" Content="Шиза" HorizontalAlignment="Left" Margin="5, 0, 0, 0">
+            </Label>
+        </Grid>
     </Grid>
 </Window>

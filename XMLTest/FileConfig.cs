@@ -3,6 +3,7 @@ using System.Windows;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace XMLTest
@@ -22,10 +23,10 @@ namespace XMLTest
             _filePath = filePath;
         }
         //обращение при создании объект когда нужно создать новый объект
-        public FileConfig(string Name, Configs conf)
+        public FileConfig(string Path, Configs conf)
         {
             Configs = conf;
-            _filePath = "C:\\Test\\" + Name + ".xml";
+            _filePath = Path;
         }
 
 
@@ -58,7 +59,6 @@ namespace XMLTest
             {
                 MessageBox.Show("File path is empty or null", "help", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
             try
             {
                 //поток обращения к файлу по пути _filePath
@@ -68,7 +68,7 @@ namespace XMLTest
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The file name is empty", "Empty file name", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The file name is empty", "Error: " + ex, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
@@ -77,9 +77,52 @@ namespace XMLTest
     [Serializable]
     public class Configs
     {
-        public string AppName { get; set; }
-        public string Color { get; set; }
-        public int Port { get; set; }
-        public string[] Logins { get; set; }
+        public Color backGroundColor { get; set; }
+
+        public Line[] lines { get; set; }
+
+        public Configs() { }
+        public Configs(Color backcolor, IEnumerable<Line> liness)
+        {
+            backGroundColor = backcolor;
+            lines = liness.ToArray();
+        }
+    }
+
+    [Serializable]
+    public class Line
+    {
+        public bool Done { get; set; }
+        public string Note { get; set; }
+
+        public Line(string A, bool B)
+        {
+            Note = A;
+            Done = B;
+        }
+        public Line()
+        {
+
+        }
+    }
+
+    public class Color
+    {
+        public byte Red { get; set; }
+        public byte Green { get; set; }
+        public byte Blue { get; set; }
+        public byte Alpha { get; set; }
+
+        public Color(byte R, byte G, byte B, byte A)
+        {
+            Red = R;
+            Green = G;
+            Blue = B;
+            Alpha = A;
+        }
+        public Color()
+        {
+
+        }
     }
 }
